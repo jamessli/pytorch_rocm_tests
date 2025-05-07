@@ -6,27 +6,21 @@ import torch
 
 class PyTorchTests:
     def __init__(self, args, config):
-        # Basic settings
         self.name         = 'pytorchtests'
         self.binary_name  = 'PyTorchTests'
         self.force_fp_16  = config['fp_16_enabled']
         self.models       = config['models']
         
-        # Discover GPUs
         self.gpus        = self._get_gpus()
         self.world_size  = len(self.gpus)
         
-        # Threshold for pass/fail (multiplier on golden data)
         self.threshold   = getattr(args, 'threshold', 1.0)
         
-        # Golden reference data
         self._golden_data = { "all_tests": 0 }
         
-        # Logging directory
         self.log_path = getattr(args, 'log_path', os.path.join(os.getcwd(), 'logs'))
         os.makedirs(self.log_path, exist_ok=True)
         
-        # Prepare environment (e.g. point to venv binaries)
         self.env = os.environ.copy()
         here = os.path.dirname(os.path.realpath(__file__))
         self.env["PATH"] = os.path.join(here, '..', 'venv', 'bin')
