@@ -15,9 +15,10 @@ This package provides a collection of PyTorch-based microbenchmarks that form th
 
 Optionally, create and activate a virtual environment:
 
-```bash
+```
 python3 -m venv venv
 source venv/bin/activate
+```
 
 **## Installation**
 Clone the microbenchmarks repo
